@@ -21,7 +21,7 @@ $.ajaxSetup({
       url: 'api/tasks?api_key=1',
       data: {
         task: {
-          content: content
+          content: $('#new-task-content').val()
         }
       },
       success: successCB,
