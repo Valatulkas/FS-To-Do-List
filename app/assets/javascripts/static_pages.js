@@ -2,6 +2,7 @@ $(document).on("turbolinks:load", function () {
     if ($('.static_pages.index').length > 0) {
       indexTasks(function (response) {
         var htmlString = response.tasks.map(function(task) {
+          $('#new-task-content').empty();
           return "<div class='col-12 my-3 p-2 border rounded text-center'>\
             <div class='task' data-id='" + task.id + "'> \
             " + task.content + " </div>\
@@ -10,6 +11,37 @@ $(document).on("turbolinks:load", function () {
             data-id='" + task.id + "' '+ (task.completed ? 'checked' : '') + >\
             </div>";
         });
+        
+        /*
+        var all = document.getElementById('all');
+        var active = document.getElementById('active');
+        var complete = document.getElementById('complete');
+        
+        all.onclick = function () {
+          $('#new-task-content').empty();
+          response.tasks.forEach(function (task) {
+            
+          })
+        };
+
+        active.onclick = function () {
+          $('#new-task-content').empty();
+          response.tasks.forEach(function (task) {
+            if (task.completed == false) {
+              
+            }
+          })
+        };
+
+        complete.onclick = function () {
+          $('#new-task-content').empty();
+          response.tasks.forEach(function (task) {
+            if (task.completed) {
+              
+            }
+          })
+        };
+        */
   
         $("#tasks").html(htmlString);
       });
