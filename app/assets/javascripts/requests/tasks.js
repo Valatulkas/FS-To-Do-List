@@ -31,7 +31,7 @@ var postTask = function (content, successCB, errorCB) {
     $.ajax(request);
 };
 
-var deleteTask = function (id) {
+var deleteTask = function (id, successCB) {
   var request = {
     type: 'DELETE',
     url: 'api/tasks/:' + id + '?api_key=1',

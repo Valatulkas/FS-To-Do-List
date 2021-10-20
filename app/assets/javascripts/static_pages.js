@@ -11,8 +11,35 @@ $(document).on("turbolinks:load", function () {
             data-id='" + task.id + "' '+ (task.completed ? 'checked' : '') + >\
             </div>";
         });
-        
-        /*
+        $("#tasks").html(htmlString);
+      });
+    }
+  });
+
+$(document).on('#create-task').submit(function (event) {
+  event.preventDefault();
+  postTask(function () {
+    $('#new-task-content').empty();
+    return "<div class='col-12 mb-3 p-2 border rounded task' data-id='"
+     + task.id + "'> \
+    " + content + "\
+      </div>";
+  })
+});
+
+$(document).on('click', '.delete', function () {
+  deleteTask($(this).data('id'), indexTasks);
+});
+
+$(document).on('change', '.mark-complete', function () {
+  if (this.checked) {
+    markComplete($(this).data('id'));
+  } else {
+    markActive($(this).data('id'));
+  }
+})
+
+      /*
         var all = document.getElementById('all');
         var active = document.getElementById('active');
         var complete = document.getElementById('complete');
@@ -41,31 +68,4 @@ $(document).on("turbolinks:load", function () {
             }
           })
         };
-        */
-  
-        $("#tasks").html(htmlString);
-      });
-    }
-  });
-
-$(document).on('#create-task').submit(function (event) {
-  event.preventDefault();
-  postTask(function () {
-    return "<div class='col-12 mb-3 p-2 border rounded task' data-id='"
-     + task.id + "'> \
-    " + content + "\
-      </div>";
-  })
-});
-
-$(document).on('click', '.delete', function () {
-  deleteTask($(this).data('id'));
-});
-
-$(document).on('change', '.mark-complete', function () {
-  if (this.checked) {
-    markComplete($(this).data('id'));
-  } else {
-    markActive($(this).data('id'));
-  }
-})
+      */

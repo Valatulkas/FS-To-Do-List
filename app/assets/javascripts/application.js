@@ -16,4 +16,5 @@
 //= require popper
 //= require bootstrap
 //= require requests/index
+//= require requests/tasks
 //= require_tree .
