@@ -16,28 +16,6 @@ $(document).on("turbolinks:load", function () {
     }
 });
 
-var injectTasks = function (response) {
-  var htmlString = response.tasks.map(function(task) {
-
-    $('#new-task-content').empty();
-    return "<div class='col-12 my-3 p-2 border rounded text-center'>\
-      <div class='task' data-id='" + task.id + "'> \
-      " + task.content + " </div>\
-      <button class='delete rounded' data-id='" + task.id + "'>Delete</button>\
-      <input type='checkbox' class='mark-complete ml-3'\
-      data-id='" + task.id + "' '+ (task.completed ? 'checked' : '') + >\
-      </div>";
-  });
-  $("#tasks").html(htmlString);
-}
-
-  
-$(document).on("turbolinks:load", function () {
-    if ($('.static_pages.index').length > 0) {
-      indexTasks()
-    }
-})
-
 $(document).on('#create-task').submit(function (event) {
   event.preventDefault();
   postTask(function () {
@@ -50,9 +28,8 @@ $(document).on('#create-task').submit(function (event) {
 });
 
 $(document).on('click', '.delete', function () {
-  delete_task($(this).data('id'), function () {
-    console.log('deleted!');
-    indexTasks(injectTasks);
+  deleteTask($(this).data('id'), function () {
+    indexTasks();
   });
 });
 
@@ -67,6 +44,27 @@ $(document).on('change', '.mark-complete', function () {
 })
 
       /*
+      var injectTasks = function (response) {
+  var htmlString = response.tasks.map(function(task) {
+
+    $('#new-task-content').empty();
+    return "<div class='col-12 my-3 p-2 border rounded text-center'>\
+      <div class='task' data-id='" + task.id + "'> \
+      " + task.content + " </div>\
+      <button class='delete rounded' data-id='" + task.id + "'>Delete</button>\
+      <input type='checkbox' class='mark-complete ml-3'\
+      data-id='" + task.id + "' '+ (task.completed ? 'checked' : '') + >\
+      </div>";
+  });
+  $("#tasks").html(htmlString);
+}
+
+
+      delete_task($(this).data('id'), function () {
+    console.log('deleted!');
+    indexTasks(injectTasks);
+
+
         var all = document.getElementById('all');
         var active = document.getElementById('active');
         var complete = document.getElementById('complete');

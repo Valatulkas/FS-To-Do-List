@@ -17,4 +17,5 @@
 //= require bootstrap
 //= require requests/index
 //= require requests/tasks
+//= require static_pages
 //= require_tree .
