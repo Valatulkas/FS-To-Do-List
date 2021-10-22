@@ -8,7 +8,7 @@ Rails.application.routes.draw do
     put    'tasks/:id'                => 'tasks#update'
     put    'tasks/:id/mark_complete'  => 'tasks#mark_complete'
     put    'tasks/:id/mark_active'    => 'tasks#mark_active'
-    delete 'tasks/:id'                => 'tasks#destroy'
+    delete 'tasks/:id'                => 'tasks#delete_task'
   end
 
   root 'static_pages#index'

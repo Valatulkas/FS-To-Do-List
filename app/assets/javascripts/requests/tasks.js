@@ -31,7 +31,7 @@ var postTask = function (content, successCB, errorCB) {
     $.ajax(request);
 };
 
-var deleteTask = function (id, successCB) {
+var delete_task = function (id, successCB) {
   var request = {
     type: 'DELETE',
     url: 'api/tasks/:' + id + '?api_key=1',
@@ -45,7 +45,7 @@ var deleteTask = function (id, successCB) {
   $.ajax(request);
 }  
 
-var markComplete = function(id) {
+var mark_complete = function(id) {
   var request = {
     type: 'PUT',
     url: 'api/tasks/:' + id + '/mark_complete?api_key=1',
@@ -59,7 +59,7 @@ var markComplete = function(id) {
   $.ajax(request);
 }
 
-var markActive = function(id) {
+var mark_active = function(id) {
   var request = {
     type: 'PUT',
     url: 'api/tasks/:' + id + '/mark_active?api_key=1',
