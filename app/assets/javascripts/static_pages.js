@@ -8,9 +8,9 @@ var injectTasksIntoDom = function (response) {
   console.log(response)
   var htmlString = response.tasks.map(function(task) {
     $('#new-task-content').empty();
-    return "<div class='col-12 my-3 p-2 border rounded text-center tasks'>\
+    return "<div class='col-12 my-3 p-2 border border-info rounded text-center tasks'>\
       <div class='task' data-id='" + task.id + "'> \
-      " + task.content + " </div>\
+      " + task.content + " </div><hr/>\
       <button class='delete rounded btn-danger' data-id='" + task.id + "'>Delete</button>\
       <input type='checkbox' class='mark-complete ml-3'\
       data-id='" + task.id + "' "+ (task.completed ? 'checked' : '') + ">\
@@ -28,6 +28,7 @@ $(document).on('#create-task').submit(function (event) {
     " + data.content + "\
       </div>";
   })
+  indexTasks(injectTasksIntoDom)
 });
 
 $(document).on('click', '.delete', function () {
@@ -42,7 +43,7 @@ $(document).on('change', '.mark-complete', function () {
     mark_complete($(this).data('id'));
   } else {
     console.log('unclicked!');
-    mark_active($(this).data('id'));
+    mark_active($(this).data('id'));  
   }
 })
 
