@@ -4,6 +4,46 @@ $(document).on("turbolinks:load", function () {
     }
 });
 
+var toggleSelection = function () {
+        var all = document.getElementById('all');
+        var active = document.getElementById('active');
+        var completed = document.getElementById('completed');
+        
+        all.onclick = function (response) {
+          indexTasks(injectTasksIntoDom);
+        };
+
+        active.onclick = function (response) {
+          var htmlString = response.tasks.map(function(task) {
+            if (task.completed) {
+              return "<div class='col-12 my-3 p-2 border border-info rounded text-center tasks'>\
+                <div class='task' data-id='" + task.id + "'> \
+                " + task.content + " </div><hr/>\
+                <button class='delete rounded btn-danger' data-id='" + task.id + "'>Delete</button>\
+                <input type='checkbox' class='mark-complete ml-3'\
+                data-id='" + task.id + "' "+ (task.completed ? 'checked' : '') + ">\
+                </div>";
+            }
+          })
+          $("#tasks").html(htmlString);
+        };
+
+        completed.onclick = function (response) {
+          var htmlString = response.tasks.map(function(task) {
+            if (!task.completed) {
+              return "<div class='col-12 my-3 p-2 border border-info rounded text-center tasks'>\
+                <div class='task' data-id='" + task.id + "'> \
+                " + task.content + " </div><hr/>\
+                <button class='delete rounded btn-danger' data-id='" + task.id + "'>Delete</button>\
+                <input type='checkbox' class='mark-complete ml-3'\
+                data-id='" + task.id + "' "+ (task.completed ? 'checked' : '') + ">\
+                </div>";
+            }
+          })
+          $("#tasks").html(htmlString);
+        };
+}
+
 var injectTasksIntoDom = function (response) {
   console.log(response)
   var htmlString = response.tasks.map(function(task) {
@@ -15,7 +55,7 @@ var injectTasksIntoDom = function (response) {
       <input type='checkbox' class='mark-complete ml-3'\
       data-id='" + task.id + "' "+ (task.completed ? 'checked' : '') + ">\
       </div>";
-  });
+    });
    $("#tasks").html(htmlString);
 };
 
@@ -47,35 +87,4 @@ $(document).on('change', '.mark-complete', function () {
   }
 })
 
-/*
-        var all = document.getElementById('all');
-        var active = document.getElementById('active');
-        var completed = document.getElementById('completed');
         
-        all.onclick = function () {
-          $('#new-task-content').empty();
-          response.tasks.forEach(function (task) {
-            indexTasks();
-          })
-        };
-
-        active.onclick = function () {
-          $('#new-task-content').empty();
-          response.tasks.forEach(function (task) {
-            if (task.completed == false) {
-              
-              console.log('active only')
-            }
-          })
-        };
-
-        completed.onclick = function () {
-          $('#new-task-content').empty();
-          response.tasks.forEach(function (task) {
-            if (task.completed) {
-              
-              console.log('complete only')
-            }
-          })
-        };
-*/
