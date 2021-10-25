@@ -3,10 +3,10 @@ $(document).on("turbolinks:load", function () {
       indexTasks(injectTasksIntoDom);
     }
 });
+
 var injectTasksIntoDom = function (response) {
   console.log(response)
   var htmlString = response.tasks.map(function(task) {
-    $('#new-task-content').empty();
     return "<div class='col-12 my-3 p-2 border border-info rounded text-center tasks'>\
     <div class='task' data-id='" + task.id + "'> \
     " + task.content + " </div><hr/>\
@@ -21,24 +21,24 @@ var injectTasksIntoDom = function (response) {
 $(document).on('#create-task').submit(function (event) {
   event.preventDefault();
   postTask(function (data) {
-    $('#new-task-content').empty();
     return "<div class='col-12 mb-3 p-2 border rounded task' data-id='"
      + data.task.id + "'> \
     " + data.content + "\
       </div>";
   })
-  indexTasks(injectTasksIntoDom)
+  $('#new-task-content').empty();
+  indexTasks(injectTasksIntoDom);
 });
 
 $(document).on('click', '.delete', function () {
-  deleteTask($(this).data('id'), function () {
-    indexTasks(injectTasksIntoDom);
-  });
+  console.log('deleted!')
+  deleteTask($(this).data('id'));
+  indexTasks(injectTasksIntoDom);
 });
 
 $(document).on('change', '.mark-complete', function () {
   if (this.checked) {
-    console.log('clicked!!');
+    console.log('clicked!');
     mark_complete($(this).data('id'));
   } else {
     console.log('unclicked!');
