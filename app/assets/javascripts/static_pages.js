@@ -3,60 +3,19 @@ $(document).on("turbolinks:load", function () {
       indexTasks(injectTasksIntoDom);
     }
 });
-
-var toggleSelection = function () {
-        var all = document.getElementById('all');
-        var active = document.getElementById('active');
-        var completed = document.getElementById('completed');
-        
-        all.onclick = function (response) {
-          indexTasks(injectTasksIntoDom);
-        };
-
-        active.onclick = function (response) {
-          var htmlString = response.tasks.map(function(task) {
-            if (task.completed) {
-              return "<div class='col-12 my-3 p-2 border border-info rounded text-center tasks'>\
-                <div class='task' data-id='" + task.id + "'> \
-                " + task.content + " </div><hr/>\
-                <button class='delete rounded btn-danger' data-id='" + task.id + "'>Delete</button>\
-                <input type='checkbox' class='mark-complete ml-3'\
-                data-id='" + task.id + "' "+ (task.completed ? 'checked' : '') + ">\
-                </div>";
-            }
-          })
-          $("#tasks").html(htmlString);
-        };
-
-        completed.onclick = function (response) {
-          var htmlString = response.tasks.map(function(task) {
-            if (!task.completed) {
-              return "<div class='col-12 my-3 p-2 border border-info rounded text-center tasks'>\
-                <div class='task' data-id='" + task.id + "'> \
-                " + task.content + " </div><hr/>\
-                <button class='delete rounded btn-danger' data-id='" + task.id + "'>Delete</button>\
-                <input type='checkbox' class='mark-complete ml-3'\
-                data-id='" + task.id + "' "+ (task.completed ? 'checked' : '') + ">\
-                </div>";
-            }
-          })
-          $("#tasks").html(htmlString);
-        };
-}
-
 var injectTasksIntoDom = function (response) {
   console.log(response)
   var htmlString = response.tasks.map(function(task) {
     $('#new-task-content').empty();
     return "<div class='col-12 my-3 p-2 border border-info rounded text-center tasks'>\
-      <div class='task' data-id='" + task.id + "'> \
-      " + task.content + " </div><hr/>\
-      <button class='delete rounded btn-danger' data-id='" + task.id + "'>Delete</button>\
-      <input type='checkbox' class='mark-complete ml-3'\
-      data-id='" + task.id + "' "+ (task.completed ? 'checked' : '') + ">\
-      </div>";
+    <div class='task' data-id='" + task.id + "'> \
+    " + task.content + " </div><hr/>\
+    <button class='delete rounded btn-danger' data-id='" + task.id + "'>Delete</button>\
+    <input type='checkbox' class='mark-complete ml-3'\
+    data-id='" + task.id + "' "+ (task.completed ? 'checked' : '') + ">\
+    </div>";
     });
-   $("#tasks").html(htmlString);
+  $("#tasks").html(htmlString);
 };
 
 $(document).on('#create-task').submit(function (event) {
@@ -87,4 +46,44 @@ $(document).on('change', '.mark-complete', function () {
   }
 })
 
-        
+$(document).on('click', '.all', function () {
+  indexTasks(injectTasksIntoDom);
+});
+
+var ifActive = function (response) {
+    var htmlString = response.tasks.map(function (task) {
+      if (task.completed) {
+        return "<div class='col-12 my-3 p-2 border border-info rounded text-center tasks'>\
+          <div class='task' data-id='" + task.id + "'> \
+          " + task.content + " </div><hr/>\
+          <button class='delete rounded btn-danger' data-id='" + task.id + "'>Delete</button>\
+          <input type='checkbox' class='mark-complete ml-3'\
+          data-id='" + task.id + "' "+ (task.completed ? 'checked' : '') + ">\
+          </div>";
+      }
+      $("#tasks").html(htmlString);
+    })
+}
+$(document).on('click', '.active', function () {
+  ifActive();
+});
+
+var ifComplete = function (response) {
+  var htmlString = response.tasks.map(function (task) {
+    if (!task.completed) {
+      return "<div class='col-12 my-3 p-2 border border-info rounded text-center tasks'>\
+        <div class='task' data-id='" + task.id + "'> \
+        " + task.content + " </div><hr/>\
+        <button class='delete rounded btn-danger' data-id='" + task.id + "'>Delete</button>\
+        <input type='checkbox' class='mark-complete ml-3'\
+        data-id='" + task.id + "' "+ (task.completed ? 'checked' : '') + ">\
+        </div>";
+    }
+    $("#tasks").html(htmlString);
+  });
+}
+
+$(document).on('click', '.completed', function () {
+  ifComplete();
+});
+      
