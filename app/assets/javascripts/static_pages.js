@@ -11,34 +11,6 @@ $(document).on("turbolinks:load", function () {
             data-id='" + task.id + "' '+ (task.completed ? 'checked' : '') + >\
             </div>";
         });
-        var all = document.getElementById('all');
-        var active = document.getElementById('active');
-        var complete = document.getElementById('complete');
-        
-        all.onclick = function () {
-          $('#new-task-content').empty();
-          response.tasks.forEach(function (task) {
-            indexTasks();
-          })
-        };
-
-        active.onclick = function () {
-          $('#new-task-content').empty();
-          response.tasks.forEach(function (task) {
-            if (task.completed == false) {
-              console.log('active only')
-            }
-          })
-        };
-
-        completed.onclick = function () {
-          $('#new-task-content').empty();
-          response.tasks.forEach(function (task) {
-            if (task.completed) {
-              console.log('complete only')
-            }
-          })
-        };
         $("#tasks").html(htmlString);
       });
     }
@@ -85,3 +57,36 @@ $(document).on('change', '.mark-complete', function () {
     mark_active($(this).data('id'));
   }
 })
+
+/*
+        var all = document.getElementById('all');
+        var active = document.getElementById('active');
+        var completed = document.getElementById('completed');
+        
+        all.onclick = function () {
+          $('#new-task-content').empty();
+          response.tasks.forEach(function (task) {
+            indexTasks();
+          })
+        };
+
+        active.onclick = function () {
+          $('#new-task-content').empty();
+          response.tasks.forEach(function (task) {
+            if (task.completed == false) {
+              
+              console.log('active only')
+            }
+          })
+        };
+
+        completed.onclick = function () {
+          $('#new-task-content').empty();
+          response.tasks.forEach(function (task) {
+            if (task.completed) {
+              
+              console.log('complete only')
+            }
+          })
+        };
+*/
