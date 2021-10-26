@@ -60,7 +60,7 @@ var injectTasksIntoDom = function (response) {
 };
 
 $(document).on('#create-task').submit(function (event) {
-  $('#new-task-content').html('');
+  $('#new-task-content').empty();
   event.preventDefault();
   postTask(function (data) {
     return "<div class='col-12 mb-3 p-2 border rounded task' data-id='"
