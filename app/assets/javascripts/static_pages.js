@@ -16,6 +16,47 @@ var injectTasksIntoDom = function (response) {
     </div>";
     });
   $("#tasks").html(htmlString);
+
+        var all = document.getElementById('all');
+        var active = document.getElementById('active');
+        var completed = document.getElementById('completed');
+
+        all.onclick = function () {
+          $('#tasks').empty();
+          response.tasks.forEach(function (task) {
+            indexTasks(injectTasksIntoDom);
+          })
+        };
+
+        active.onclick = function () {
+          $('#tasks').empty();
+          response.tasks.forEach(function (task) {
+            if (!task.completed) {
+              $('#tasks').append("<div class='col-12 my-3 p-2 border border-info rounded text-center tasks'>\
+              <div class='task' data-id='" + task.id + "'> \
+              " + task.content + " </div><hr/>\
+              <button class='delete rounded btn-danger' data-id='" + task.id + "'>Delete</button>\
+              <input type='checkbox' class='mark-complete ml-3'\
+              data-id='" + task.id + "' "+ (task.completed ? 'checked' : '') + ">\
+              </div>");
+            }
+          })
+        };
+
+        completed.onclick = function () {
+          $('#tasks').empty();
+          response.tasks.forEach(function (task) {
+            if (task.completed) {
+              $('#tasks').append("<div class='col-12 my-3 p-2 border border-info rounded text-center tasks'>\
+              <div class='task' data-id='" + task.id + "'> \
+              " + task.content + " </div><hr/>\
+              <button class='delete rounded btn-danger' data-id='" + task.id + "'>Delete</button>\
+              <input type='checkbox' class='mark-complete ml-3'\
+              data-id='" + task.id + "' "+ (task.completed ? 'checked' : '') + ">\
+              </div>");
+            }
+          })
+        };
 };
 
 $(document).on('#create-task').submit(function (event) {
@@ -48,42 +89,4 @@ $(document).on('change', '.mark-complete', function () {
 
 $(document).on('click', '.all', function () {
   indexTasks(injectTasksIntoDom);
-});
-
-var ifActive = function (response) {
-    var htmlString = response.tasks.map(function (task) {
-      if (task.completed) {
-        return "<div class='col-12 my-3 p-2 border border-info rounded text-center tasks'>\
-          <div class='task' data-id='" + task.id + "'> \
-          " + task.content + " </div><hr/>\
-          <button class='delete rounded btn-danger' data-id='" + task.id + "'>Delete</button>\
-          <input type='checkbox' class='mark-complete ml-3'\
-          data-id='" + task.id + "' "+ (task.completed ? 'checked' : '') + ">\
-          </div>";
-      }
-      $("#tasks").html(htmlString);
-    })
-}
-$(document).on('click', '.active', function () {
-  ifActive();
-});
-
-var ifComplete = function (response) {
-  var htmlString = response.tasks.map(function (task) {
-    if (!task.completed) {
-      return "<div class='col-12 my-3 p-2 border border-info rounded text-center tasks'>\
-        <div class='task' data-id='" + task.id + "'> \
-        " + task.content + " </div><hr/>\
-        <button class='delete rounded btn-danger' data-id='" + task.id + "'>Delete</button>\
-        <input type='checkbox' class='mark-complete ml-3'\
-        data-id='" + task.id + "' "+ (task.completed ? 'checked' : '') + ">\
-        </div>";
-    }
-    $("#tasks").html(htmlString);
-  });
-}
-
-$(document).on('click', '.completed', function () {
-  ifComplete();
-});
-      
+});    
