@@ -63,12 +63,8 @@ $(document).on('#create-task').submit(function (event) {
   
   event.preventDefault();
   postTask(function (data) {
-    return "<div class='col-12 mb-3 p-2 border rounded task' data-id='"
-     + data.task.id + "'> \
-    " + data.content + "\
-      </div>";
+    indexTasks(injectTasksIntoDom);
   })
-  indexTasks(injectTasksIntoDom);
   $('#new-task-content').val('');
 });
 
